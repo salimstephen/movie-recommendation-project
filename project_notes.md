@@ -237,4 +237,43 @@
 # 5\. Commit changes to Git.
 
 # 
+## Day 3: Understanding the Data
 
+### Objective
+
+Understand the purpose of each dataset and how they relate to the recommendation problem.
+
+---
+
+### Datasets Explored
+
+- **train.csv** – Contains historical user ratings and serves as the primary training dataset.
+- **test.csv** – Contains user–movie pairs for which ratings will be predicted.
+- **movies.csv** – Contains movie titles and genres.
+- **imdb_data.csv** – Provides additional movie metadata such as cast, director, runtime, budget, and plot keywords.
+- **links.csv** – Maps MovieLens movie IDs to external databases.
+- **tags.csv** – Contains user-generated descriptive tags for movies.
+
+---
+
+### Key Observations
+
+- Each row in the **train** dataset represents one rating given by one user to one movie.
+- The **movies** dataset stores descriptive information about movies and avoids repeating movie details in the training data.
+- The **IMDb** dataset enriches the movies with additional metadata useful for content-based recommendation.
+- The **movieId** column is the common key that links multiple datasets together.
+- The **train** dataset is the most important dataset because it contains the user ratings that the recommendation model will learn from.
+
+---
+
+### Key Insight
+
+A recommendation system is not built from a single dataset.
+
+It combines user behavior with movie information to predict how much a user is likely to enjoy a movie.
+
+---
+
+### Next Step
+
+Begin Exploratory Data Analysis (EDA) to understand user rating behavior and movie popularity before building recommendation models.
