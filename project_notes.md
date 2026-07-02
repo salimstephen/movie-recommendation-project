@@ -277,3 +277,32 @@ It combines user behavior with movie information to predict how much a user is l
 ### Next Step
 
 Begin Exploratory Data Analysis (EDA) to understand user rating behavior and movie popularity before building recommendation models.
+
+## EDA Findings: Movie Popularity
+
+### Objective
+
+Identify the movies that have received the highest number of user ratings.
+
+---
+
+### Method
+
+- Grouped the training dataset by `movieId`.
+- Counted the number of ratings for each movie.
+- Merged the results with the `movies` dataset using the `movieId` key to retrieve movie titles and genres.
+
+---
+
+### Key Findings
+
+- The Shawshank Redemption (1994) received the highest number of ratings.
+- Other highly rated movies include Forrest Gump, Pulp Fiction, The Matrix, Jurassic Park, and Fight Club.
+- Popular movies span multiple genres, including Drama, Action, Crime, Adventure, and Sci-Fi.
+- The popularity ranking reflects real-world movie popularity, suggesting the dataset is representative of user viewing behavior.
+
+---
+
+### Insight
+
+A popularity-based recommendation system can recommend widely watched movies to new users even before personalized recommendations are available.
