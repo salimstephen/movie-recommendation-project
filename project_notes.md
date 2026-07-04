@@ -1,308 +1,408 @@
-# \# Movie Recommendation Project Journal
+# Movie Recommendation Project Journal
 
-# 
-
-# \---
-
-# 
-
-# \## Day 1: Data Loading \& Understanding
-
-# 
-
-# \### Dataset Loaded Successfully
-
-# 
-
-# \#### Train Dataset
-
-# 
-
-# \* Shape: \*\*10,000,038 rows × 4 columns\*\*
-
-# \* Columns:
-
-# 
-
-# &#x20; \* userId
-
-# &#x20; \* movieId
-
-# &#x20; \* rating
-
-# &#x20; \* timestamp
-
-# 
-
-# \#### Movies Dataset
-
-# 
-
-# \* Shape: \*\*62,423 rows × 3 columns\*\*
-
-# \* Columns:
-
-# 
-
-# &#x20; \* movieId
-
-# &#x20; \* title
-
-# &#x20; \* genres
-
-# 
-
-# \---
-
-# 
-
-# \### Initial Observations
-
-# 
-
-# \* No structural issues detected during data loading.
-
-# \* Ratings range from \*\*0.5 to 5.0\*\*.
-
-# \* Large-scale dataset suitable for collaborative filtering.
-
-# \* Movies dataset contains rich metadata including titles and genres.
-
-# 
-
-# \---
-
-# 
-
-# \### Key Insight
-
-# 
-
-# We are solving a \*\*rating prediction problem\*\*.
-
-# 
-
-# \*\*Input:\*\*
-
-# 
-
-# \* userId
-
-# \* movieId
-
-# 
-
-# \*\*Output:\*\*
-
-# 
-
-# \* Predicted rating
-
-# 
-
-# \---
-
-# 
-
-# \### Notes
-
-# 
-
-# \* Data is clean at first inspection.
-
-# \* No preprocessing applied yet.
-
-# \* Next step: build a baseline recommender model (popularity-based).
-
-# 
-
-# \---
-
-# 
-
-# \## Day 2: Project Setup \& Version Control
-
-# 
-
-# \### Dataset \& Environment Setup
-
-# 
-
-# \* Successfully located the project folder.
-
-# \* Opened Jupyter Notebook using:
-
-# &#x20; `python -m notebook`
-
-# \* Verified notebook:
-
-# &#x20; `movie\_recommender.ipynb`
-
-# 
-
-# \---
-
-# 
-
-# \### Version Control Setup
-
-# 
-
-# \* Initialized Git repository.
-
-# \* Created first commit:
-
-# &#x20; \*\*"Initial movie recommendation project structure and notebook"\*\*
-
-# \* Git status:
-
-# 
-
-# &#x20; \* Working tree clean.
-
-# &#x20; \* Branch: main.
-
-# 
-
-# \---
-
-# 
-
-# \### Project Structure
-
-# 
-
-# \* data/
-
-# \* notebooks/
-
-# \* models/
-
-# \* reports/
-
-# \* submission/
-
-# 
-
-# \---
-
-# 
-
-# \### Key Insight
-
-# 
-
-# Version control is now integrated into the project.
-
-# 
-
-# Future work can be resumed easily, and all progress can be tracked through Git commits.
-
-# 
-
-# \---
-
-# 
-
-# \### Next Steps
-
-# 
-
-# \* Continue building the recommendation model.
-
-# \* Test recommendation outputs.
-
-# \* Save models in the models folder.
-
-# \* Prepare the final report.
-
-# 
-
-# \---
-
-# 
-
-# \### Session Reminder
-
-# 
-
-# 1\. Start Jupyter Notebook.
-
-# 2\. Open `movie\_recommender.ipynb`.
-
-# 3\. Review `project\_notes.md`.
-
-# 4\. Continue from the previous session.
-
-# 5\. Commit changes to Git.
-
-# 
-## Day 3: Understanding the Data
-
-### Objective
-
-Understand the purpose of each dataset and how they relate to the recommendation problem.
+This journal documents the complete development process of the Movie Recommendation System, including the reasoning behind each step, the insights discovered, and how every stage contributes to building a reliable recommendation model.
 
 ---
 
-### Datasets Explored
+# Day 1: Project Understanding & Data Loading
 
-- **train.csv** – Contains historical user ratings and serves as the primary training dataset.
-- **test.csv** – Contains user–movie pairs for which ratings will be predicted.
-- **movies.csv** – Contains movie titles and genres.
-- **imdb_data.csv** – Provides additional movie metadata such as cast, director, runtime, budget, and plot keywords.
-- **links.csv** – Maps MovieLens movie IDs to external databases.
-- **tags.csv** – Contains user-generated descriptive tags for movies.
+## Objective
+
+Understand the machine learning problem and successfully load all datasets required for the project.
 
 ---
 
-### Key Observations
+## Machine Learning Problem
 
-- Each row in the **train** dataset represents one rating given by one user to one movie.
-- The **movies** dataset stores descriptive information about movies and avoids repeating movie details in the training data.
-- The **IMDb** dataset enriches the movies with additional metadata useful for content-based recommendation.
-- The **movieId** column is the common key that links multiple datasets together.
-- The **train** dataset is the most important dataset because it contains the user ratings that the recommendation model will learn from.
+The objective of this project is to build a recommendation system capable of predicting how a user is likely to rate a movie.
 
----
+**Input**
 
-### Key Insight
+- User ID
+- Movie ID
 
-A recommendation system is not built from a single dataset.
+**Output**
 
-It combines user behavior with movie information to predict how much a user is likely to enjoy a movie.
+- Predicted movie rating
 
----
-
-### Next Step
-
-Begin Exploratory Data Analysis (EDA) to understand user rating behavior and movie popularity before building recommendation models.
-
-## EDA Findings: Movie Popularity
-
-### Objective
-
-Identify the movies that have received the highest number of user ratings.
+This is a **supervised machine learning regression problem**, since the model learns from historical user ratings.
 
 ---
 
-### Method
+## Datasets Loaded Successfully
 
-- Grouped the training dataset by `movieId`.
-- Counted the number of ratings for each movie.
-- Merged the results with the `movies` dataset using the `movieId` key to retrieve movie titles and genres.
+### 1. Training Dataset (`train.csv`)
+
+**Shape:** **10,000,038 rows × 4 columns**
+
+**Columns**
+
+- userId
+- movieId
+- rating
+- timestamp
+
+This dataset contains historical ratings given by users and serves as the primary training dataset.
 
 ---
 
-### Key Findings
+### 2. Movies Dataset (`movies.csv`)
 
-- The Shawshank Redemption (1994) received the highest number of ratings.
-- Other highly rated movies include Forrest Gump, Pulp Fiction, The Matrix, Jurassic Park, and Fight Club.
-- Popular movies span multiple genres, including Drama, Action, Crime, Adventure, and Sci-Fi.
-- The popularity ranking reflects real-world movie popularity, suggesting the dataset is representative of user viewing behavior.
+**Shape:** **62,423 rows × 3 columns**
+
+**Columns**
+
+- movieId
+- title
+- genres
+
+This dataset provides descriptive information about every movie.
 
 ---
+
+## Initial Observations
+
+- Data loaded successfully without structural issues.
+- Ratings range from **0.5 to 5.0**.
+- Dataset size is large enough for building recommendation models.
+- Movie information is stored separately from user ratings to reduce duplication.
+
+---
+
+## Key Insight
+
+The recommendation system learns from previous user behavior.
+
+The model studies historical ratings to predict how users may rate movies they have not watched.
+
+---
+
+## Next Step
+
+Understand every dataset before beginning exploratory data analysis.
+
+---
+
+# Day 2: Project Setup & Version Control
+
+## Objective
+
+Create a professional project structure and integrate version control to track development.
+
+---
+
+## Environment Setup
+
+Successfully configured the project environment.
+
+- Opened Jupyter Notebook using:
+
+```bash
+python -m notebook
+```
+
+- Verified notebook:
+
+```
+movie_recommender.ipynb
+```
+
+---
+
+## Git Version Control
+
+Completed the initial Git workflow.
+
+- Initialized Git repository.
+- Created the first commit.
+- Connected the project to GitHub.
+- Learned how to stage, commit, and push changes.
+- Configured `.gitignore` to exclude large datasets from version control.
+
+---
+
+## Project Structure
+
+```text
+Movie_Recommendation_Project_2026/
+│
+├── data/
+├── notebooks/
+├── models/
+├── reports/
+├── submission/
+├── project_notes.md
+├── README.md
+└── .gitignore
+```
+
+---
+
+## Key Insight
+
+Version control is an essential part of professional data science.
+
+Using Git allows every experiment, improvement, and milestone to be tracked and restored whenever necessary.
+
+---
+
+## Next Step
+
+Begin exploring the datasets to understand how they relate to one another.
+
+---
+
+# Day 3: Understanding the Data
+
+## Objective
+
+Understand the purpose of every dataset and how they work together to solve the recommendation problem.
+
+---
+
+## Datasets Explored
+
+### train.csv
+
+Contains historical user ratings.
+
+Each row represents one user rating for one movie.
+
+This is the dataset the recommendation model learns from.
+
+---
+
+### test.csv
+
+Contains user–movie pairs whose ratings must be predicted.
+
+---
+
+### movies.csv
+
+Contains movie titles and genres.
+
+This dataset provides descriptive information about each movie.
+
+---
+
+### imdb_data.csv
+
+Contains additional movie metadata including:
+
+- Cast
+- Director
+- Runtime
+- Budget
+- Plot Keywords
+
+These features may later support content-based recommendation.
+
+---
+
+### links.csv
+
+Maps MovieLens movie IDs to external movie databases.
+
+---
+
+### tags.csv
+
+Contains user-generated descriptive tags for movies.
+
+---
+
+## Relationships Between Datasets
+
+The common key connecting the datasets is:
+
+**movieId**
+
+This allows movie information to be merged with user ratings whenever additional movie details are required.
+
+---
+
+## Key Observations
+
+- The training dataset contains user behavior.
+- The movies dataset contains movie characteristics.
+- The IMDb dataset enriches movie information with additional metadata.
+- The recommendation system relies on multiple datasets rather than a single source.
+
+---
+
+## Key Insight
+
+Recommendation systems combine user interactions with movie information to better understand user preferences.
+
+The richer the available information, the more intelligent the recommendations can become.
+
+---
+
+## Next Step
+
+Perform Exploratory Data Analysis (EDA) to understand the structure and quality of the data before building models.
+
+---
+
+# Day 4: Exploratory Data Analysis (EDA)
+
+## Objective
+
+Explore the data to understand user behavior, movie popularity, data quality, and movie characteristics before building recommendation models.
+
+---
+
+## Rating Distribution
+
+### Findings
+
+- Ratings range from **0.5 to 5.0**.
+- The average rating is approximately **3.53**.
+- Most ratings fall between **3.0 and 4.0**.
+- Rating **4.0** appears most frequently.
 
 ### Insight
 
-A popularity-based recommendation system can recommend widely watched movies to new users even before personalized recommendations are available.
+Users generally give positive ratings, indicating that people are more likely to rate movies they enjoy.
+
+This positive trend is useful because the model will learn from a large number of favorable user interactions.
+
+---
+
+## Movie Popularity Analysis
+
+### Method
+
+- Grouped ratings by `movieId`.
+- Counted how many ratings each movie received.
+- Merged the results with the `movies` dataset.
+
+### Findings
+
+The most frequently rated movies include:
+
+- The Shawshank Redemption
+- Forrest Gump
+- Pulp Fiction
+- The Matrix
+- Jurassic Park
+- Fight Club
+
+### Insight
+
+Popular movies provide a strong foundation for a baseline recommendation system.
+
+A popularity-based recommender can effectively recommend movies to new users before sufficient personal history is available.
+
+---
+
+## User Activity Analysis
+
+### Findings
+
+- A small number of users contributed thousands of ratings.
+- Most users rated only a relatively small number of movies.
+
+### Insight
+
+User activity is highly imbalanced.
+
+Highly active users provide rich information for learning user preferences, while inactive users create the **cold-start problem**, making personalized recommendations more difficult.
+
+---
+
+## Missing Value Analysis
+
+### Results
+
+#### Train Dataset
+
+No missing values.
+
+#### Movies Dataset
+
+No missing values.
+
+#### IMDb Dataset
+
+Missing values were identified in:
+
+- title_cast
+- director
+- runtime
+- budget
+- plot_keywords
+
+### Insight
+
+Missing values are common in real-world datasets.
+
+Since the recommendation model initially relies on user ratings, these missing values do not prevent development of the baseline model.
+
+However, they should be considered if the IMDb features are used in future content-based recommendation models.
+
+---
+
+## Genre Analysis
+
+### Objective
+
+Understand the distribution of movie genres and their importance in recommendation systems.
+
+### Findings
+
+The most common genres are:
+
+1. Drama
+2. Comedy
+3. Thriller
+4. Romance
+5. Action
+
+Movies frequently belong to multiple genres simultaneously.
+
+Example:
+
+**Forrest Gump (1994)**
+
+- Comedy
+- Drama
+- Romance
+- War
+
+Genre counts therefore represent the frequency of genre appearances rather than the number of unique movies.
+
+### Insight
+
+Genres describe movie content rather than user behavior.
+
+This information becomes especially valuable for content-based recommendation systems because users often prefer particular genres.
+
+---
+
+# Overall Progress Summary
+
+At this stage, the project has successfully completed:
+
+- Machine learning problem definition.
+- Dataset loading.
+- Dataset relationship analysis.
+- Git and GitHub integration.
+- Project organization.
+- Exploratory Data Analysis.
+- Rating distribution analysis.
+- Movie popularity analysis.
+- User activity analysis.
+- Missing value analysis.
+- Genre analysis.
+
+The project now has a solid understanding of both the data and the recommendation problem, providing a strong foundation for building the first recommendation model.
+
+---
+
+# Next Phase
+
+The next stage of the project is to build the **baseline popularity-based recommendation system**.
+
+This model will serve as the project's first benchmark and establish a reference point against which more advanced recommendation algorithms will later be evaluated.
