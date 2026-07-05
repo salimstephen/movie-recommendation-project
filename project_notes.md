@@ -406,3 +406,172 @@ The project now has a solid understanding of both the data and the recommendatio
 The next stage of the project is to build the **baseline popularity-based recommendation system**.
 
 This model will serve as the project's first benchmark and establish a reference point against which more advanced recommendation algorithms will later be evaluated.
+
+---
+
+# Day 5: Building the Baseline Recommendation System
+
+## Objective
+
+Build the first working recommendation engine using a **popularity-based recommendation approach**.
+
+Before introducing personalized recommendations, it is important to establish a simple baseline model that recommends movies which are generally popular among all users.
+
+This baseline will later serve as a benchmark for evaluating more advanced recommendation algorithms.
+
+---
+
+## Why Start with a Popularity-Based Recommender?
+
+A recommendation system cannot personalize recommendations for a user who has never interacted with the platform.
+
+This challenge is known as the **Cold Start Problem**.
+
+For a completely new user, the system has no information such as:
+
+- Previously watched movies
+- Ratings
+- Favorite genres
+- Preferred actors or directors
+
+Since no personal preferences are available, the safest strategy is to recommend movies that have been watched and appreciated by a large number of users.
+
+---
+
+## Computing Movie Statistics
+
+The first step was to calculate two important statistics for every movie in the training dataset.
+
+### Average Rating
+
+Represents the overall quality of a movie based on user ratings.
+
+### Rating Count
+
+Represents how many users have rated the movie.
+
+This measures the popularity and reliability of the rating.
+
+The statistics were calculated by grouping the training dataset using the `movieId` column.
+
+---
+
+## Why Average Rating Alone Is Not Enough
+
+A movie with an average rating of **5.0** based on only two ratings is less reliable than a movie with an average rating of **4.7** based on 30,000 ratings.
+
+For this reason, recommendation systems should not rely solely on average ratings.
+
+The number of ratings provides confidence that the movie's quality has been validated by many users.
+
+---
+
+## Combining Movie Information
+
+The calculated statistics only contained numerical information such as:
+
+- movieId
+- average_rating
+- rating_count
+
+These values are useful for the algorithm but not meaningful to users.
+
+To create understandable recommendations, the statistics were merged with the `movies.csv` dataset using the common key:
+
+**movieId**
+
+This added:
+
+- Movie title
+- Movie genres
+
+to every recommendation.
+
+---
+
+## Ranking Strategy
+
+Movies were ranked using two criteria:
+
+1. Rating Count
+2. Average Rating
+
+The movies were sorted in descending order (`ascending=False`) so that the most popular and highly rated movies appear first.
+
+This ranking strategy balances both popularity and quality.
+
+---
+
+## Results
+
+The highest-ranked movies included:
+
+- The Shawshank Redemption (1994)
+- Forrest Gump (1994)
+- Pulp Fiction (1994)
+- The Silence of the Lambs (1991)
+- The Matrix (1999)
+- Star Wars: Episode IV – A New Hope (1977)
+- Jurassic Park (1993)
+- Schindler's List (1993)
+- Braveheart (1995)
+- Fight Club (1999)
+
+These movies are widely recognized as popular films with consistently high user ratings, indicating that the recommendation strategy is producing sensible results.
+
+---
+
+## Key Learning
+
+This milestone demonstrated that a recommendation system does not need machine learning to provide useful recommendations.
+
+By analyzing historical user ratings, we can already recommend movies that have been trusted and enjoyed by thousands of users.
+
+Although this approach does not personalize recommendations, it provides an excellent baseline for comparison with more advanced recommendation techniques.
+
+---
+
+## Business Value
+
+Popularity-based recommendation systems are commonly used for:
+
+- New users with no watch history.
+- Trending movie sections.
+- "Most Popular" recommendations.
+- Featured content on home pages.
+
+This approach helps solve the Cold Start Problem by providing meaningful recommendations before sufficient user interaction data has been collected.
+
+---
+
+## Limitations
+
+Despite its simplicity, the popularity-based recommender has several limitations.
+
+- Every user receives the same recommendations.
+- Individual preferences are ignored.
+- Favorite genres are not considered.
+- Watching history is not used.
+- The recommendations never change based on user behavior.
+
+Because of these limitations, popularity-based recommendations are typically used only as a baseline or for new users.
+
+---
+
+## Milestone Summary
+
+At this stage of the project, the following components have been successfully completed:
+
+- Problem Definition
+- Dataset Understanding
+- Exploratory Data Analysis (EDA)
+- Rating Distribution Analysis
+- Movie Popularity Analysis
+- User Activity Analysis
+- Missing Value Analysis
+- Genre Analysis
+- Baseline Popularity-Based Recommendation System
+
+The project now has its first fully functional recommendation engine.
+
+The next milestone is to build a **personalized recommendation system** that recommends different movies to different users based on their individual preferences and historical interactions.
