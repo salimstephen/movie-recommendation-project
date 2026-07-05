@@ -575,3 +575,220 @@ At this stage of the project, the following components have been successfully co
 The project now has its first fully functional recommendation engine.
 
 The next milestone is to build a **personalized recommendation system** that recommends different movies to different users based on their individual preferences and historical interactions.
+
+# ------------------------------------------------------------------
+# Milestone: Building the Personalized Recommendation System
+# ------------------------------------------------------------------
+
+## Objective
+
+Move beyond recommending movies that are popular with everyone and build a recommendation system that provides personalized movie suggestions based on a user's viewing preferences.
+
+---
+
+## Concept Learned
+
+This stage introduces **User-Based Collaborative Filtering**.
+
+Instead of recommending the same movies to every user, the system identifies users with similar movie preferences and recommends movies that those similar users enjoyed.
+
+The fundamental idea is:
+
+> **Users who have agreed in the past are likely to agree again in the future.**
+
+---
+
+## Step 1: Creating the User–Movie Matrix
+
+### Objective
+
+Transform the ratings dataset into a matrix where:
+
+- Rows represent users.
+- Columns represent movies.
+- Values represent the ratings each user gave to each movie.
+
+Example:
+
+| User | Movie A | Movie B | Movie C |
+|------|---------|---------|---------|
+| User 1 | 5 | NaN | 4 |
+| User 2 | 4 | 5 | NaN |
+| User 3 | NaN | 3 | 5 |
+
+### Key Insight
+
+Most users have rated only a small number of movies.
+
+As a result, the matrix contains many missing (`NaN`) values. This is known as a **sparse matrix**, which is common in real-world recommendation systems.
+
+---
+
+## Step 2: Handling Missing Values
+
+Since similarity algorithms cannot work directly with missing values, all `NaN` values were temporarily replaced with `0` using:
+
+```python
+user_movie_filled = user_movie_matrix.fillna(0)
+```
+
+### Important Note
+
+The value `0` **does not mean the user disliked the movie**.
+
+It is only used as a mathematical placeholder indicating that the user has **not interacted with that movie**.
+
+The original dataset remains unchanged.
+
+---
+
+## Step 3: Calculating User Similarity
+
+### Objective
+
+Measure how similar every user is to every other user.
+
+The project uses **Cosine Similarity**, which compares users based on their overall rating patterns rather than exact rating values.
+
+```python
+from sklearn.metrics.pairwise import cosine_similarity
+```
+
+The similarity scores were converted into a DataFrame for easier interpretation.
+
+### Observations
+
+- Every user has a similarity score of **1.0** with themselves.
+- Similarity scores between different users were generally low due to the sparse nature of the dataset.
+- This behavior is expected in large recommendation datasets where users rate only a small subset of available movies.
+
+---
+
+## Step 4: Finding Similar Users
+
+For the target user (User 1), the users with the highest similarity scores were identified.
+
+The first result (User 1) was excluded because every user is perfectly similar to themselves.
+
+The recommender therefore selects the next most similar users to learn from their preferences.
+
+---
+
+## Step 5: Collecting Ratings from Similar Users
+
+Using the identified similar users, all of their movie ratings were extracted from the training dataset.
+
+These ratings become the source of potential recommendations.
+
+At this stage, the recommendation candidates consist only of movies watched by users with similar preferences.
+
+---
+
+## Step 6: Removing Movies Already Watched
+
+Movies that User 1 had already rated were removed from the candidate list.
+
+This ensures that the recommender suggests **new movies** rather than movies the user has already seen.
+
+The filtering logic used:
+
+```python
+~similar_users_ratings["movieId"].isin(user1_movies)
+```
+
+### Key Insight
+
+A recommendation system should help users discover new content instead of recommending movies they have already watched.
+
+---
+
+## Step 7: Ranking Recommendation Candidates
+
+The remaining candidate movies were grouped by `movieId`.
+
+Instead of counting how many users watched each movie, the recommender calculated the **average rating** given by similar users.
+
+```python
+.groupby("movieId")["rating"].mean()
+```
+
+### Why Average Rating?
+
+Using the average rating prioritizes movies that similar users genuinely enjoyed.
+
+For example:
+
+- Movie A rated 5, 5, 5 → Average = 5.0
+- Movie B rated 3, 2, 3 → Average = 2.67
+
+Although both movies were watched by the same number of users, Movie A is the stronger recommendation.
+
+---
+
+## Step 8: Making Recommendations Readable
+
+The recommendation results initially contained only movie IDs.
+
+These results were merged with the `movies` dataset using the common `movieId` column.
+
+This added:
+
+- Movie title
+- Genres
+
+making the recommendations understandable to end users.
+
+Example output:
+
+| Title | Genres |
+|--------|--------|
+| WALL·E | Adventure, Animation, Romance, Sci-Fi |
+| Apocalypse Now | Action, Drama, War |
+| V for Vendetta | Action, Sci-Fi, Thriller |
+| The Imitation Game | Drama, Thriller, War |
+
+---
+
+## Final Outcome
+
+The project successfully produced personalized movie recommendations based on collaborative filtering.
+
+The recommendation pipeline now performs the following steps:
+
+1. Load and understand the datasets.
+2. Perform Exploratory Data Analysis (EDA).
+3. Build a popularity-based recommender.
+4. Create the user–movie matrix.
+5. Compute user similarity using Cosine Similarity.
+6. Find users with similar movie preferences.
+7. Collect ratings from those similar users.
+8. Remove movies already watched by the target user.
+9. Rank remaining movies using average ratings.
+10. Display personalized recommendations with movie titles and genres.
+
+---
+
+## Skills Practiced
+
+Throughout this milestone, the following data science concepts were applied:
+
+- Data transformation using Pandas
+- Pivot tables
+- Sparse matrix representation
+- Handling missing values
+- Cosine Similarity
+- User-Based Collaborative Filtering
+- Boolean filtering
+- Data aggregation using `groupby()`
+- Data merging using `merge()`
+- Building an end-to-end recommendation pipeline
+
+---
+
+## Reflection
+
+This milestone marked the transition from simply exploring data to building an intelligent machine learning system.
+
+Rather than recommending movies that are popular with everyone, the recommender now makes personalized suggestions by learning from users with similar preferences.
+
+This project strengthened practical skills in data manipulation, recommendation algorithms, debugging, Git version control, and translating machine learning concepts into a complete working application.
