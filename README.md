@@ -1,38 +1,45 @@
 # 🎬 Movie Recommendation System
 
-A machine learning project that builds both **Popularity-Based** and **User-Based Collaborative Filtering** recommendation systems using the MovieLens dataset.
+A Python-based movie recommendation project built with the MovieLens dataset, exploring both popularity-based recommendations and personalized recommendations using user-based collaborative filtering.
 
-This project was developed as part of my journey into Data Science to gain a deep understanding of how modern recommendation systems work. Rather than simply following tutorials, the focus was on understanding the purpose behind every step, from data exploration to generating personalized movie recommendations.
+The project was developed as part of my Data Science learning journey, with a focus on understanding how recommendation systems work from data exploration through recommendation generation.
 
 ---
 
 # 📌 Project Overview
 
-Recommendation systems are used by platforms such as Netflix, Amazon, Spotify, and YouTube to suggest content that users are likely to enjoy.
+Recommendation systems help users discover relevant content based on popularity, preferences, or similarities between users and items.
 
-This project demonstrates two recommendation approaches:
+In this project, I implemented two approaches:
 
-* **Popularity-Based Recommendation** – recommends movies that are popular among all users.
-* **User-Based Collaborative Filtering** – recommends movies based on users with similar viewing preferences.
-
-The project was built step by step to understand both the business problem and the machine learning concepts behind recommendation systems.
+- **Popularity-Based Recommendation** — recommends movies based on overall popularity and ratings.
+- **User-Based Collaborative Filtering** — identifies users with similar rating patterns and uses their preferences to generate personalized recommendations.
+  
+The project focuses on understanding the underlying data and recommendation logic rather than treating the recommendation algorithm as a black box.
 
 ---
 
-# 🎯 Project Objectives
+# 🎯 Objectives
 
-* Understand recommendation systems from first principles.
-* Explore and analyze movie rating data.
-* Build a popularity-based recommender.
-* Build a personalized recommendation system using User-Based Collaborative Filtering.
-* Practice data manipulation, feature engineering, and similarity calculations.
-* Apply professional Git and GitHub version control throughout the project.
+The main objectives of the project were to:
+
+- Explore and understand movie-rating data.
+- Perform exploratory data analysis and data preparation.
+- Build a popularity-based recommendation approach.
+- Construct a user–movie rating matrix.
+- Calculate user similarity using cosine similarity.
+- Identify users with similar preferences.
+- Generate personalized movie recommendations.
+- Practice working with real-world-style datasets using Python.
+- Apply Git and GitHub for project version control and documentation.
 
 ---
 
 # 📂 Dataset
 
-The project uses the MovieLens movie recommendation dataset consisting of:
+The project uses the MovieLens movie-rating dataset and related movie information.
+
+The data used in the project includes information such as:
 
 | Dataset           | Description                                                                            |
 | ----------------- | -------------------------------------------------------------------------------------- |
@@ -43,36 +50,27 @@ The project uses the MovieLens movie recommendation dataset consisting of:
 | **links.csv**     | Links between MovieLens and external movie databases                                   |
 | **tags.csv**      | User-generated movie tags                                                              |
 
----
-
-# 🛠️ Technologies Used
-
-* Python
-* Pandas
-* NumPy
-* Scikit-learn
-* Jupyter Notebook
-* Git
-* GitHub
+The datasets are not included in the repository where they are excluded by the project's Git configuration.
 
 ---
 
-# 📊 Project Workflow
+# 🔍 Project Workflow
 
-The project follows the complete machine learning workflow:
+The project follows a structured data science workflow:
 
-1. Data loading and inspection
-2. Understanding the datasets
-3. Exploratory Data Analysis (EDA)
-4. Identifying popular movies
-5. Building a Popularity-Based Recommendation System
-6. Creating the User–Movie Matrix
-7. Handling sparse data
-8. Computing user similarity using Cosine Similarity
-9. Identifying similar users
-10. Filtering already watched movies
-11. Ranking recommendation candidates
-12. Producing personalized movie recommendations
+1. Load and inspect the datasets.
+2. Understand the structure and relationships between the data.
+3. Perform exploratory data analysis.
+4. Clean and transform the relevant data.
+5. Explore movie popularity and rating patterns.
+6. Build a popularity-based recommender.
+7. Create a user–movie rating matrix.
+8. Address the sparsity of the user–movie data.
+9. Calculate user similarity using cosine similarity.
+10. Identify users with similar preferences.
+11. Filter movies already rated by the target user.
+12. Rank recommendation candidates.
+13. Generate personalized recommendations.
 
 ---
 
@@ -80,47 +78,81 @@ The project follows the complete machine learning workflow:
 
 ## 1. Popularity-Based Recommendation
 
-This recommender suggests movies that are widely watched and highly rated across all users.
+The first approach recommends movies based on their overall popularity and rating performance.
 
-Suitable for:
+This approach is useful when:
 
-* New users
-* Cold-start scenarios
-* Trending movie recommendations
+- There is limited information about a new user.
+- Personalized user history is unavailable.
+- The goal is to surface broadly popular content.
 
-Example output:
+Example recommendations generated during the project include:
 
-* The Shawshank Redemption
-* Forrest Gump
-* The Matrix
-* Fight Club
-
----
+- The Shawshank Redemption
+- Forrest Gump
+- The Matrix
+- Fight Club
 
 ## 2. User-Based Collaborative Filtering
 
-This recommender identifies users with similar movie preferences using **Cosine Similarity**.
+The second approach provides personalized recommendations by comparing users based on their movie-rating patterns.
 
-Recommendation process:
+The process involves:
 
-* Build a user–movie matrix.
-* Calculate similarity between users.
-* Find the most similar users.
-* Collect movies rated by similar users.
-* Remove movies already watched by the target user.
-* Rank the remaining movies based on average ratings.
-* Recommend the highest-ranked movies.
+1. Creating a user–movie rating matrix.
+2. Comparing users using Cosine Similarity.
+3. Identifying users with similar rating patterns.
+4. Collecting movies rated by similar users.
+5. Removing movies already rated by the target user.
+6. Ranking the remaining candidates.
+7. Returning the highest-ranked recommendations.
 
-Example recommendations:
+Example recommendations generated during the project include:
 
-* WALL·E
-* Apocalypse Now
-* The Imitation Game
-* V for Vendetta
-* Jerry Maguire
+- WALL·E
+- Apocalypse Now
+- The Imitation Game
+- V for Vendetta
+- Jerry Maguire
 
 ---
+# 🧠 Key Technical Concepts
 
+This project gave me practical experience with:
+
+- Exploratory Data Analysis (EDA)
+- Data cleaning
+- Data transformation
+- Data merging
+- User–item matrices
+- Sparse data
+- Collaborative filtering
+- Cosine similarity
+- Recommendation logic
+- Ranking recommendation candidates
+- Python data analysis
+- Git and GitHub
+
+---
+# 🛠️ Technologies Used
+
+## Programming & Data
+
+- Python
+- Pandas
+- NumPy
+
+## Machine Learning
+
+- Scikit-learn
+
+## Development
+
+- Jupyter Notebook
+- Git
+- GitHub
+
+---
 # 📁 Project Structure
 
 ```text
@@ -137,57 +169,79 @@ Movie_Recommendation_Project_2026/
 ├── .gitignore
 └── open_project.bat
 ```
-
 ---
+# 📊 Current Limitations
 
-# 📈 Key Skills Demonstrated
+This project is primarily focused on understanding and implementing recommendation-system concepts.
 
-* Exploratory Data Analysis (EDA)
-* Data Cleaning
-* Data Transformation
-* Data Merging
-* Recommendation Systems
-* User-Based Collaborative Filtering
-* Cosine Similarity
-* Pandas
-* Git & GitHub
-* Problem Solving
+The current version does not yet include:
 
----
+- Formal recommendation-model evaluation using metrics such as RMSE or MAE.
+- Item-based collaborative filtering.
+- Matrix factorization.
+- A hybrid recommendation approach.
+- A deployed web application.
+- A production recommendation API.
 
-# 📚 What I Learned
-
-Throughout this project I developed a practical understanding of:
-
-* How recommendation systems work.
-* The difference between popularity-based and personalized recommendations.
-* Why sparse datasets are common in recommendation systems.
-* How Cosine Similarity identifies users with similar preferences.
-* How to transform raw data into meaningful recommendations.
-* The importance of documenting work and using version control in professional projects.
+These areas provide opportunities for future development.
 
 ---
 
 # 🔮 Future Improvements
 
-Future versions of this project may include:
+Potential improvements include:
 
-* Item-Based Collaborative Filtering
-* Matrix Factorization
-* Hybrid Recommendation Systems
-* Model evaluation metrics (RMSE, MAE)
-* Hyperparameter tuning
-* Interactive web application deployment using Streamlit
-* Movie recommendation API
+- Implementing item-based collaborative filtering.
+- Exploring matrix factorization techniques.
+- Combining collaborative and content-based approaches.
+- Adding formal model evaluation.
+- Comparing recommendation approaches using appropriate metrics.
+- Improving recommendation efficiency for larger datasets.
+- Building an interactive application using Streamlit.
+- Developing an API for serving recommendations.
+
+---
+
+# 📚 What I Learned
+
+Through this project, I developed a stronger practical understanding of how recommendation systems can be built from user-rating data.
+
+In particular, I learned how to:
+
+- Transform raw rating data into a structure suitable for recommendation.
+- Work with sparse user–movie matrices.
+- Measure similarity between users.
+- Generate recommendations from similar users.
+- Distinguish between general popularity and personalized recommendations.
+- Document a data science project using Git and GitHub.
+
+---
+
+# ▶️ Running the Project
+
+## 1. Clone the repository
+git clone https://github.com/salimstephen/movie-recommendation-project.git
+## 2. Navigate into the project
+cd movie-recommendation-project
+## 3. Install the required Python libraries
+pip install pandas numpy scikit-learn jupyter
+## 4. Start Jupyter Notebook
+jupyter notebook
+
+Open the notebook inside the notebooks directory and run the cells sequentially.
+
+Note: The required datasets are not stored directly in the repository. Make sure the expected dataset files are available in the appropriate local project location before running the notebook.
 
 ---
 
 # 👨‍💻 Author
 
-**Stephen Otieno**
+**Stephen (Salim) Otieno**
 
-Aspiring Data Scientist passionate about solving real-world problems using data and machine learning.
+Data Science & Analytics practitioner building practical experience in:
 
-This project is part of my portfolio showcasing practical data science skills and continuous learning.
+**Python • SQL • Data Analysis • Power BI • Machine Learning**
+
+This project is part of my portfolio and reflects my continued development in Data Science and Machine Learning.
 
 
